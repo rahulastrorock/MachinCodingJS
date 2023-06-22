@@ -10,18 +10,17 @@ const progressMade = (interval / totalMs) * 100;
 export default function App() {
   const [progress, setProgress] = useState(0);
   const [percent, setPercent] = useState(0);
-  const timer = useRef();
   const cyclesCompleted = useRef(0);
   useEffect(() => {
-    timer.current = setInterval(() => {
+    const timer = setInterval(() => {
       setProgress((prevProgress) => prevProgress + progressMade);
       setPercent((prevPercent) => prevPercent + progressMade);
       cyclesCompleted.current += 1;
-      if (cyclesCompleted.current === totalCycles) clearInterval(timer.current);
+      if (cyclesCompleted.current === totalCycles) clearInterval(timer);
     }, interval);
 
     return () => {
-      clearInterval(timer.current);
+      clearInterval(timer);
     };
   }, []);
 
